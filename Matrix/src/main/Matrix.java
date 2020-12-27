@@ -1,32 +1,44 @@
 package main;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Matrix {
-    int rows;
-    int columns;
-    double[][] matrix;
+    private int rows;
+    private int columns;
+    private double[][] matrix;
+
 
     //matrix initialization
-    public Matrix(int rows, int columns, double[][] matrix) throws Exception {
+    public Matrix(int rows, int columns, double[][] matrix) throws IllegalArgumentException {
+
+        int zeroSz = 0;
+        if(matrix.length > 0) zeroSz = matrix[0].length;
+
+        for(double[] row: matrix) {
+            if (row.length != zeroSz) throw new IllegalArgumentException("incorrect matrix");
+        }
+
         if (rows < 0 || columns < 0)
-            throw new Exception("Invalid matrix input!");
+            throw new IllegalArgumentException("Invalid matrix input!");
         else {
             this.rows = rows;
             this.columns = columns;
-            this.matrix = matrix;
+            this.matrix = matrix.clone();
         }
     }
 
     //viewing element value
-    public double getElement(int i, int j) throws Exception {
+    public double getElement(int i, int j) throws IllegalArgumentException {
         if ((i < 0) || (j < 0) || (i >= this.rows || j >= this.columns))
-            throw new Exception("Invalid indexes!");
+            throw new IllegalArgumentException("Invalid indexes!");
         else
             return matrix[i][j];
     }
     //element changing
-    public void changeElement(int i, int j, double element) throws Exception {
+    public void changeElement(int i, int j, double element) throws IllegalArgumentException {
         if ((i < 0) || (j < 0) || (i >= rows || j >= columns))
-            throw new Exception("Invalid indexes");
+            throw new IllegalArgumentException("Invalid indexes");
         else
             matrix[i][j] = element;
         return;
@@ -43,9 +55,9 @@ public class Matrix {
     }
 
     //matrix addition
-    public void addition(Matrix addingMatrix) throws Exception {
+    public void addition(Matrix addingMatrix) throws IllegalArgumentException {
         if ((rows != addingMatrix.rows) && (columns != addingMatrix.columns))
-            throw new Exception("Invalid sizes");
+            throw new IllegalArgumentException("Invalid sizes");
         else {
             for (int i = 0; i < rows; ++i)
                 for (int j = 0; j < columns; ++j)
@@ -54,9 +66,9 @@ public class Matrix {
     }
 
     //matrix subtraction
-    public void subtraction(Matrix subtractingMatrix) throws Exception {
+    public void subtraction(Matrix subtractingMatrix) throws UnsupportedOperationException {
         if ((rows != subtractingMatrix.rows) && (columns != subtractingMatrix.columns))
-            throw new Exception("Invalid sizes");
+            throw new UnsupportedOperationException("Invalid sizes");
         else {
             for (int i = 0; i < rows; ++i)
                 for (int j = 0; j < columns; ++j)
@@ -65,9 +77,9 @@ public class Matrix {
         return;
     }
 
-    public void multiplication(Matrix other_Matrix) throws Exception {
+    public void multiplication(Matrix other_Matrix) throws UnsupportedOperationException {
         if (rows != other_Matrix.columns)
-            throw new Exception("Invalid sizes");
+            throw new UnsupportedOperationException("Invalid sizes");
         else {
             double[][] res_Matrix = new double[other_Matrix.rows][other_Matrix.columns];
             for (int i = 0; i < rows; ++i)
@@ -131,17 +143,28 @@ public class Matrix {
         return result;
     }
 
-    //comparing matrix
-    public boolean compareTo(Matrix comparable) {
-        if (this.columns == comparable.columns && this.rows == comparable.rows) {
-            for (int i = 0; i < this.rows; ++i)
-                for (int j = 0; j < this.columns; ++j)
-                    if (this.matrix[i][j] != comparable.matrix[i][j])
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matrix matrix1 = (Matrix) o;
+        if (this.rows == matrix1.rows && this.columns == matrix1.columns) {
+            for (int i = 0; i < this.columns; ++i)
+                for (int j = 0; j < this.rows; ++j)
+                    if (this.matrix[i][j] != matrix1.matrix[i][j])
                         return false;
         } else return false;
 
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(rows, columns);
+        result = 27 * result + Arrays.hashCode(matrix);
+        return result;
+    }
+
 
     //matrix as string
     @Override

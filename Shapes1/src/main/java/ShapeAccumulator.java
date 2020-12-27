@@ -1,7 +1,9 @@
 import Figures.Shape;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class ShapeAccumulator {
     private List<Shape> shapes;
@@ -18,6 +20,10 @@ public class ShapeAccumulator {
         this.shapes.addAll(shapes);
     }
 
+    public void addAll(Set<? extends Shape> shapes) {
+        List<Shape> figures = new ArrayList<>(shapes);
+        addAll(figures);
+    }
 
     public double getTotalArea() {
         double total = 0;
@@ -36,7 +42,7 @@ public class ShapeAccumulator {
     }
 
     public final Shape getMaxAreaShape() {
-
+        if(shapes.size() == 0) return  null;
         Shape maxArea = shapes.get(0);
         for ( int i = 0; i < shapes.size(); i++ ) {
             if (maxArea.calcArea() < shapes.get(i).calcArea()) {
@@ -47,7 +53,7 @@ public class ShapeAccumulator {
     }
 
     public final Shape getMinAreaShape() {
-
+        if(shapes.size() == 0) return  null;
         Shape minArea = shapes.get(0);
         for ( int i = 0; i < shapes.size(); i++ ) {
             if (minArea.calcArea() > shapes.get(i).calcArea()) {
@@ -58,7 +64,7 @@ public class ShapeAccumulator {
     }
 
     public final Shape getMaxPerimeterShape() {
-
+        if(shapes.size() == 0) return  null;
         Shape maxArea = shapes.get(0);
         for (int i = 0; i < shapes.size(); i++) {
             if (maxArea.calcPerimeter() < shapes.get(i).calcPerimeter()) {
@@ -69,7 +75,7 @@ public class ShapeAccumulator {
     }
 
     public final Shape getMinPerimeterShape() {
-
+        if(shapes.size() == 0) return  null;
         Shape minArea = shapes.get(0);
         for (int i = 0; i < shapes.size(); i++) {
             if (minArea.calcPerimeter() > shapes.get(i).calcPerimeter()) {

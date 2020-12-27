@@ -16,8 +16,10 @@ public class Main {
             a.subtraction(b);
             System.out.println(a.toString());
             System.out.println(b.countDeterminant());
+            System.out.println(a==b);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

@@ -6,6 +6,7 @@ import input_dialogs.TriangleForm;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,11 +64,24 @@ public class MainForm extends JFrame {
     }
 
     private void writeShapesToFile() {
-        FileManager.write(shapeList);
+        try {
+            FileManager.write(shapeList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void readShapesFromFile() {
-        shapeList.addAll((List<Shape>) FileManager.read());
+        List<Shape> readedShapes = null;
+
+        try{
+            readedShapes = (List<Shape>) FileManager.read();
+        } catch (Exception e) {
+            readedShapes = null;
+            e.printStackTrace();
+        }
+
+        shapeList.addAll(readedShapes);
 
         for (Shape shape : shapeList)
             this.stringArrayList.add(shape.toString());

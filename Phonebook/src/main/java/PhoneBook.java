@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 import Number.*;
 
 public class PhoneBook {
@@ -41,6 +40,10 @@ public class PhoneBook {
                 findPerson.add(c);
         }
 
-        return findPerson;
+        //В множестве лежат только уникальные значения
+        Set<Subscriber> singledValues = new HashSet<Subscriber>(findPerson);
+
+        //поэтому результаты не будут повторяться
+        return new ArrayList<>(singledValues);
     }
 }
