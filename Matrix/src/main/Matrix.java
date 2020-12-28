@@ -102,9 +102,9 @@ public class Matrix {
     }
 
     //computation determinant
-    public double countDeterminant() throws Exception {
+    public double countDeterminant() throws UnsupportedOperationException {
         if (rows != columns)
-            throw new Exception("Invalid size");
+            throw new UnsupportedOperationException("Invalid size");
         else
             return this.countDeterminant(matrix, this.rows);
     }

@@ -1,9 +1,7 @@
 import Figures.Shape;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class ShapeAccumulator {
     private List<Shape> shapes;
@@ -16,13 +14,10 @@ public class ShapeAccumulator {
         this.shapes = new ArrayList<Shape>();
     }
 
-    public void addAll(List<? extends Shape> shapes) {
-        this.shapes.addAll(shapes);
-    }
+    public void addAll(Collection<? extends Shape> shapes) {
+        Shape[] arr = (Shape[]) shapes.toArray();
 
-    public void addAll(Set<? extends Shape> shapes) {
-        List<Shape> figures = new ArrayList<>(shapes);
-        addAll(figures);
+        this.shapes.addAll(Arrays.asList(arr));
     }
 
     public double getTotalArea() {
