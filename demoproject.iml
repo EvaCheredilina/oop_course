@@ -5,8 +5,8 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/Matrix/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Shapes" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Shapes1/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/phonebook/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Shapes/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Phonebook/src/main/java" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
